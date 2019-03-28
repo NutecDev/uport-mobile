@@ -8,7 +8,7 @@ import { track } from 'uPortMobile/lib/actions/metricActions'
 import { segmentId } from 'uPortMobile/lib/selectors/identities'
 
 interface WelcomeProps {
-  navigator: Navigator
+  navigator: any
   trackSegment: (event: any) => any
 }
 
