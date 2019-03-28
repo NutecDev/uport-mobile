@@ -1,16 +1,17 @@
 import * as React from 'react'
+import { Navigation } from 'react-native-navigation'
+import SCREENS from '../Screens'
 import { Device, Screen, Images, Theme, Slide, NavBar, OnboardingSwiperSlide, Button, Container } from '@kancha'
-import { Navigator, NavigatorStyle } from 'react-native-navigation'
-import Swiper from 'react-native-swiper'
 import { OnboardingContent } from 'uPortMobile/lib/content/onboardingSlideContent'
+import Swiper from 'react-native-swiper'
 
 const onboardingSlides: OnboardingSwiperSlide[] = OnboardingContent(Images)
 
 interface LearnProps {
-  navigator: Navigator
+  componentId: string
 }
 
-const Learn: React.FC<LearnProps> & { navigatorStyle: NavigatorStyle } = props => {
+const Learn: React.FC<LearnProps> = props => {
   return (
     <Screen
       type={Screen.Types.Custom}
@@ -25,7 +26,7 @@ const Learn: React.FC<LearnProps> & { navigatorStyle: NavigatorStyle } = props =
               buttonText={'Continue'}
               type={Button.Types.Primary}
               block={Button.Block.Filled}
-              onPress={() => props.navigator.push({ screen: 'onboarding2.CreateIdentity' })}
+              onPress={() => Navigation.push(props.componentId, { component: { name: SCREENS.CreateIdentity } })}
             />
           </Container>
         </Container>
@@ -45,15 +46,6 @@ const Learn: React.FC<LearnProps> & { navigatorStyle: NavigatorStyle } = props =
       </Swiper>
     </Screen>
   )
-}
-
-Learn.navigatorStyle = {
-  drawUnderNavBar: true,
-  navBarTranslucent: true,
-  navBarTransparent: true,
-  navBarBackgroundColor: 'transparent',
-  navBarButtonColor: 'white',
-  topBarElevationShadowEnabled: false,
 }
 
 export default Learn
