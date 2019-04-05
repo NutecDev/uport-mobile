@@ -30,7 +30,6 @@ import com.imagepicker.ImagePickerPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.poberwong.launcher.IntentLauncherPackage;
-import com.reactnativenavigation.NavigationApplication;
 import com.uport.sdk.react.signer.NativeSignerPackage;
 
 
@@ -47,7 +46,23 @@ import io.invertase.firebase.config.RNFirebaseRemoteConfigPackage;
 import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
 
-public class MainApplication extends NavigationApplication implements ShareApplication{
+import com.facebook.react.ReactNativeHost;
+import com.reactnativenavigation.NavigationApplication;
+import com.reactnativenavigation.react.NavigationReactNativeHost;
+import com.reactnativenavigation.react.ReactGateway;
+
+public class MainApplication extends NavigationApplication implements ShareApplication {
+
+    @Override
+    protected ReactGateway createReactGateway() {
+        ReactNativeHost host = new NavigationReactNativeHost(this, isDebug(), createAdditionalReactPackages()) {
+            @Override
+            protected String getJSMainModuleName() {
+                return "index";
+            }
+        };
+        return new ReactGateway(this, isDebug(), host);
+    }
 
     @Override
     public void onCreate() {
@@ -79,7 +94,6 @@ public class MainApplication extends NavigationApplication implements ShareAppli
 
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
-                new MainReactPackage(),
                 new RNSharePackage(),
                 new RNFirebasePackage(),
                 new RNFirebaseRemoteConfigPackage(),
